@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,19 +21,20 @@ public class BattleSystem : MonoBehaviour
     private BattleUnit enemyUnit;
     [SerializeField]
     private BattleHud enemyHud;
-
     [SerializeField]
     private BattleDialogBox dialogBox;
+
+    public event Action<bool> OnBattleOver;
 
     private BattleState state;
     private int currentAction;
     private int currentMove;
 
-    private void Start() {
+    public void StartBattle() {
         StartCoroutine(SetupBattle());
     }
 
-    private void Update() {
+    public void HandleUpdate() {
         if (state == BattleState.PlayerAction) {
             HandleActionSelection();
         }
@@ -42,9 +44,9 @@ public class BattleSystem : MonoBehaviour
     }
 
     public IEnumerator SetupBattle() {
-        playerUnit.Setup();
+        //playerUnit.Setup();
         playerHud.SetData(playerUnit.Pokemon);
-        enemyUnit.Setup();
+        //enemyUnit.Setup();
         enemyHud.SetData(enemyUnit.Pokemon);
 
         dialogBox.SetMoveNames(playerUnit.Pokemon.Moves);
@@ -72,6 +74,8 @@ public class BattleSystem : MonoBehaviour
         state = BattleState.Busy;
 
         Move move = playerUnit.Pokemon.Moves[currentMove];
+        move.PP--;
+
         yield return dialogBox.TypeDialog($"{playerUnit.Pokemon.Base.Name} used {move.Base.Name}");
 
         playerUnit.PlayAttackAnimation();
@@ -85,6 +89,9 @@ public class BattleSystem : MonoBehaviour
         if (damageDetails.Fainted) {
             yield return dialogBox.TypeDialog($"{enemyUnit.Pokemon.Base.Name} fainted");
             enemyUnit.PlayFaintAnimation();
+
+            yield return new WaitForSeconds(2f);
+            OnBattleOver(true);
         }
         else {
             StartCoroutine(EnemyMove());
@@ -95,6 +102,7 @@ public class BattleSystem : MonoBehaviour
         state = BattleState.EnemyMove;
 
         Move move = enemyUnit.Pokemon.GetRandomMove();
+        move.PP--;
 
         yield return dialogBox.TypeDialog($"{enemyUnit.Pokemon.Base.Name} used {move.Base.Name}");
 
@@ -109,6 +117,9 @@ public class BattleSystem : MonoBehaviour
         if (damageDetails.Fainted) {
             yield return dialogBox.TypeDialog($"{playerUnit.Pokemon.Base.Name} fainted");
             playerUnit.PlayFaintAnimation();
+
+            yield return new WaitForSeconds(2f);
+            OnBattleOver(false);
         }
         else {
             PlayerAction();
