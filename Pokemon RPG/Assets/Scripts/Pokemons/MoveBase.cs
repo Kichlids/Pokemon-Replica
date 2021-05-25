@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName="Move", menuName="Pokemon/Create new move")]
-public class MoveBase : ScriptableObject
-{
+[CreateAssetMenu(fileName = "Move", menuName = "Pokemon/Create new move")]
+public class MoveBase : ScriptableObject {
     [SerializeField]
     private string name;
     [SerializeField]
@@ -16,11 +15,15 @@ public class MoveBase : ScriptableObject
     [SerializeField]
     private int accuracy;
     [SerializeField]
+    private bool alwaysHits;
+    [SerializeField]
     private int pp;
     [SerializeField]
     private MoveCategory category;
     [SerializeField]
     private MoveEffects effects;
+    [SerializeField]
+    private List<SecondaryEffects> secondaries;
     [SerializeField]
     private MoveTarget target;
 
@@ -39,6 +42,9 @@ public class MoveBase : ScriptableObject
     public int Accuracy {
         get { return accuracy; }
     }
+    public bool AlwaysHits {
+        get { return alwaysHits; }
+    }
     public int PP {
         get { return pp; }
     }
@@ -48,6 +54,9 @@ public class MoveBase : ScriptableObject
 
     public MoveEffects Effects {
         get { return effects; }
+    }
+    public List<SecondaryEffects> Secondaries {
+        get { return secondaries; }
     }
 
     public MoveTarget Target {
@@ -76,6 +85,22 @@ public class MoveEffects {
         get { return volatileStatus; }
     }
 
+}
+
+[System.Serializable]
+public class SecondaryEffects : MoveEffects {
+    [SerializeField]
+    private int chance;
+    [SerializeField]
+    private MoveTarget target;
+
+    public int Chance {
+        get { return chance; }
+    }
+
+    public MoveTarget Target {
+        get { return target; }
+    }
 }
 
 [System.Serializable]

@@ -10,19 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 03bfadf3d5d5cce4e9aa3cdb49c8901e, type: 3}
-  m_Name: Supersonic
+  m_Name: SandAttack
   m_EditorClassIdentifier: 
-  name: Supersonic
+  name: Sand Attack
   description: 
-  type: 1
+  type: 9
   power: 0
-  accuracy: 55
+  accuracy: 100
   alwaysHits: 0
-  pp: 20
+  pp: 15
   category: 2
   effects:
-    boosts: []
+    boosts:
+    - stat: 5
+      boost: -1
     status: 0
-    volatileStatus: 6
+    volatileStatus: 0
   secondaries: []
   target: 0

@@ -96,7 +96,11 @@ public enum Stat {
     Defense,
     SpAttack,
     SpDefense,
-    Speed
+    Speed,
+
+    // These 2 aren't actual stats; they're used to boost move accuracy  
+    Accuracy,
+    Evasion
 }
 public enum PokemonType {
     None,

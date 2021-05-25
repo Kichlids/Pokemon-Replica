@@ -142,29 +142,46 @@ public class BattleSystem : MonoBehaviour
         move.PP--;
         yield return dialogBox.TypeDialog($"{sourceUnit.Pokemon.Base.Name} used {move.Base.Name}");
 
-        sourceUnit.PlayAttackAnimation();
-        yield return new WaitForSeconds(1f);
+        // Check if move hits
+        if (CheckIfMoveHits(move, sourceUnit.Pokemon, targetUnit.Pokemon)) {
+            sourceUnit.PlayAttackAnimation();
+            yield return new WaitForSeconds(1f);
 
-        targetUnit.PlayHitAnimation();
-        
-        // Run move
-        if (move.Base.Category == MoveCategory.Status) {
-            yield return RunMoveEffects(move, sourceUnit.Pokemon, targetUnit.Pokemon);
+            targetUnit.PlayHitAnimation();
+
+            // Run move
+            if (move.Base.Category == MoveCategory.Status) {
+                yield return RunMoveEffects(move.Base.Effects, sourceUnit.Pokemon, targetUnit.Pokemon, move.Base.Target);
+            }
+            else {
+                DamageDetails damageDetails = targetUnit.Pokemon.TakeDamage(move, sourceUnit.Pokemon);
+                yield return targetUnit.Hud.UpdateHP();
+                yield return ShowDamageDetails(damageDetails);
+            }
+
+            // Run secondary effects
+            if (move.Base.Secondaries != null && move.Base.Secondaries.Count > 0 && targetUnit.Pokemon.HP > 0) {
+                
+                foreach (SecondaryEffects secondary in move.Base.Secondaries) {
+                    int random = UnityEngine.Random.Range(1, 101);
+                    if (random <= secondary.Chance) {
+                        yield return RunMoveEffects(secondary, sourceUnit.Pokemon, targetUnit.Pokemon, secondary.Target);
+                    }
+                }
+            }
+
+            // Check if attacks faints the pokemon
+            if (targetUnit.Pokemon.HP <= 0) {
+                yield return dialogBox.TypeDialog($"{targetUnit.Pokemon.Base.Name} fainted");
+                targetUnit.PlayFaintAnimation();
+
+                yield return new WaitForSeconds(2f);
+
+                CheckForBattleOver(targetUnit);
+            }
         }
         else {
-            DamageDetails damageDetails = targetUnit.Pokemon.TakeDamage(move, sourceUnit.Pokemon);
-            yield return targetUnit.Hud.UpdateHP();
-            yield return ShowDamageDetails(damageDetails);
-        }
-
-        // Check if attacks faints the pokemon
-        if (targetUnit.Pokemon.HP <= 0) {
-            yield return dialogBox.TypeDialog($"{targetUnit.Pokemon.Base.Name} fainted");
-            targetUnit.PlayFaintAnimation();
-
-            yield return new WaitForSeconds(2f);
-
-            CheckForBattleOver(targetUnit);
+            yield return dialogBox.TypeDialog($"{sourceUnit.Pokemon.Base.Name}'s attack missed");
         }
 
         // Check if status faints the pokemon after turn
@@ -182,12 +199,11 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
-    IEnumerator RunMoveEffects(Move move, Pokemon source, Pokemon target) {
-        MoveEffects effects = move.Base.Effects;
+    IEnumerator RunMoveEffects(MoveEffects effects, Pokemon source, Pokemon target, MoveTarget moveTarget) {
 
         // Stat Boosting
-        if (move.Base.Effects.Boosts != null) {
-            if (move.Base.Target == MoveTarget.Self) {
+        if (effects.Boosts != null) {
+            if (moveTarget == MoveTarget.Self) {
                 source.ApplyBoosts(effects.Boosts);
             }
             else {
@@ -200,15 +216,41 @@ public class BattleSystem : MonoBehaviour
             target.SetStatus(effects.Status);
         }
         // Volatile Status Condition
-        else if (effects.VolatileStatus != ConditionID.none) {
+        if (effects.VolatileStatus != ConditionID.none) {
             target.SetVolatileStatus(effects.VolatileStatus);
-        }
-        else {
-            yield return dialogBox.TypeDialog("but it failed");
         }
 
         yield return ShowStatusChanges(source);
         yield return ShowStatusChanges(target);
+    }
+
+    private bool CheckIfMoveHits(Move move, Pokemon source, Pokemon target) {
+
+        if (move.Base.AlwaysHits) {
+            return true;
+        }
+
+        float moveAccuracy = move.Base.Accuracy;
+        int accuracy = source.StatBoosts[Stat.Accuracy];
+        int evasion = target.StatBoosts[Stat.Evasion];
+
+        float[] boostValues = new float[] { 1f, 4f / 3f, 5f / 3f, 2f, 7f / 3f, 8f / 3f, 3f };
+
+        if (accuracy > 0) {
+            moveAccuracy *= boostValues[accuracy];
+        }
+        else {
+            moveAccuracy /= boostValues[-accuracy];
+        }
+
+        if (evasion > 0) {
+            moveAccuracy /= boostValues[evasion];
+        }
+        else {
+            moveAccuracy *= boostValues[-evasion];
+        }
+
+        return UnityEngine.Random.Range(1, 101) <= moveAccuracy;
     }
 
     private IEnumerator ShowStatusChanges(Pokemon pokemon) {
