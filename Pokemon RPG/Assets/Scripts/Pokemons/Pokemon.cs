@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,6 +33,7 @@ public class Pokemon
 
     public Queue<string> StatusChanges { get; private set; } = new Queue<string>();
     public bool HpChanged { get; set; }
+    public event Action OnStatusChanged;
 
     public void  Init() {
 
@@ -60,7 +62,7 @@ public class Pokemon
         Stats.Add(Stat.SpDefense, Mathf.FloorToInt((Base.SpDefense * Level) / 100f) + 5);
         Stats.Add(Stat.Speed, Mathf.FloorToInt((Base.Speed * Level) / 100f) + 5);
 
-        MaxHP = Mathf.FloorToInt((Base.MaxHP * Level) / 100f) + 10;
+        MaxHP = Mathf.FloorToInt((Base.MaxHP * Level) / 100f) + 10 + Level;
     }
 
     private void ResetStatBoost() {
@@ -128,7 +130,7 @@ public class Pokemon
     public DamageDetails TakeDamage(Move move, Pokemon attacker) {
 
         float critical = 1f;
-        if (Random.value * 100f <= 6.25f)
+        if (UnityEngine.Random.value * 100f <= 6.25f)
             critical = 2f;
 
         float type = TypeChart.GetEffectiveness(move.Base.Type, this.Base.Type1) * TypeChart.GetEffectiveness(move.Base.Type, this.Base.Type2);
@@ -142,7 +144,7 @@ public class Pokemon
         float attack = (move.Base.Category == MoveCategory.Special) ? attacker.SpAttack : attacker.Attack;
         float defense = (move.Base.Category == MoveCategory.Special) ? SpDefense : Defense;
 
-        float modifiers = Random.Range(0.85f, 1f) * type * critical;
+        float modifiers = UnityEngine.Random.Range(0.85f, 1f) * type * critical;
         float a = (2 * attacker.Level + 10) / 250f;
         float d = a * move.Base.Power * (attack / defense) + 2;
         int damage = Mathf.FloorToInt(d * modifiers);
@@ -158,17 +160,22 @@ public class Pokemon
     }
 
     public void SetStatus(ConditionID conditionId) {
+        if (Status != null)
+            return;
+
         Status = ConditionsDB.Conditions[conditionId];
         Status?.OnStart?.Invoke(this);
         StatusChanges.Enqueue($"{Base.Name} {Status.StartMessage}");
+        OnStatusChanged?.Invoke();
     }
 
     public void CureStatus() {
         Status = null;
+        OnStatusChanged?.Invoke();
     }
 
     public Move GetRandomMove() {
-        int r = Random.Range(0, Moves.Count);
+        int r = UnityEngine.Random.Range(0, Moves.Count);
         return Moves[r];
     }
 

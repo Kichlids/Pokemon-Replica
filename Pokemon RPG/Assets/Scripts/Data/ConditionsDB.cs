@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class ConditionsDB
 {
+    public static void Init() {
+        foreach (KeyValuePair<ConditionID, Condition> pair in Conditions) {
+            ConditionID conditionId = pair.Key;
+            Condition condition = pair.Value;
+
+            condition.Id = conditionId;
+        }
+    }
+
     public static Dictionary<ConditionID, Condition> Conditions { get; set; } = new Dictionary<ConditionID, Condition>() {
         {
             ConditionID.psn,

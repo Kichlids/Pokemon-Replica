@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03bfadf3d5d5cce4e9aa3cdb49c8901e, type: 3}
   m_Name: Sing
   m_EditorClassIdentifier: 
-  name: 
+  name: Sing
   description: 
-  type: 0
+  type: 1
   power: 0
-  accuracy: 0
-  pp: 0
-  category: 0
+  accuracy: 100
+  pp: 15
+  category: 2
   effects:
     boosts: []
-    status: 0
+    status: 3
   target: 0
