@@ -134,6 +134,7 @@ public class BattleSystem : MonoBehaviour
         bool canRunMove = sourceUnit.Pokemon.OnBeforeMove();
         if (!canRunMove) {
             yield return ShowStatusChanges(sourceUnit.Pokemon);
+            yield return sourceUnit.Hud.UpdateHP();
             yield break;
         }
         yield return ShowStatusChanges(sourceUnit.Pokemon);
@@ -145,7 +146,8 @@ public class BattleSystem : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         targetUnit.PlayHitAnimation();
-
+        
+        // Run move
         if (move.Base.Category == MoveCategory.Status) {
             yield return RunMoveEffects(move, sourceUnit.Pokemon, targetUnit.Pokemon);
         }
@@ -155,6 +157,7 @@ public class BattleSystem : MonoBehaviour
             yield return ShowDamageDetails(damageDetails);
         }
 
+        // Check if attacks faints the pokemon
         if (targetUnit.Pokemon.HP <= 0) {
             yield return dialogBox.TypeDialog($"{targetUnit.Pokemon.Base.Name} fainted");
             targetUnit.PlayFaintAnimation();
@@ -170,12 +173,12 @@ public class BattleSystem : MonoBehaviour
         yield return sourceUnit.Hud.UpdateHP();
 
         if (sourceUnit.Pokemon.HP <= 0) {
-            yield return dialogBox.TypeDialog($"{targetUnit.Pokemon.Base.Name} fainted");
-            targetUnit.PlayFaintAnimation();
+            yield return dialogBox.TypeDialog($"{sourceUnit.Pokemon.Base.Name} fainted");
+            sourceUnit.PlayFaintAnimation();
 
             yield return new WaitForSeconds(2f);
 
-            CheckForBattleOver(targetUnit);
+            CheckForBattleOver(sourceUnit);
         }
     }
 
@@ -195,6 +198,10 @@ public class BattleSystem : MonoBehaviour
         // Status Condition
         if (effects.Status != ConditionID.none) {
             target.SetStatus(effects.Status);
+        }
+        // Volatile Status Condition
+        if (effects.VolatileStatus != ConditionID.none) {
+            target.SetVolatileStatus(effects.VolatileStatus);
         }
 
         yield return ShowStatusChanges(source);
