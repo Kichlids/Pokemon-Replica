@@ -200,8 +200,11 @@ public class BattleSystem : MonoBehaviour
             target.SetStatus(effects.Status);
         }
         // Volatile Status Condition
-        if (effects.VolatileStatus != ConditionID.none) {
+        else if (effects.VolatileStatus != ConditionID.none) {
             target.SetVolatileStatus(effects.VolatileStatus);
+        }
+        else {
+            yield return dialogBox.TypeDialog("but it failed");
         }
 
         yield return ShowStatusChanges(source);
