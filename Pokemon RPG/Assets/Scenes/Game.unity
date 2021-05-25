@@ -820,8 +820,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 47}
-  m_SizeDelta: {x: 420.57, y: 62.4}
+  m_AnchoredPosition: {x: 3.63, y: 47}
+  m_SizeDelta: {x: 732.48, y: 62.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &111111527
 MonoBehaviour:
@@ -1861,6 +1861,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayerUnit: 0
+  hud: {fileID: 1229509905}
 --- !u!114 &555300712
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18344,6 +18345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayerUnit: 1
+  hud: {fileID: 1018878059}
 --- !u!1 &1018878055
 GameObject:
   m_ObjectHideFlags: 0
@@ -18795,9 +18797,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerUnit: {fileID: 992033641}
-  playerHud: {fileID: 1018878059}
   enemyUnit: {fileID: 555300711}
-  enemyHud: {fileID: 1229509905}
   dialogBox: {fileID: 1467903574}
   partyScreen: {fileID: 231686327}
 --- !u!1 &1182356771
@@ -19128,8 +19128,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.015747, y: -224.31}
-  m_SizeDelta: {x: 799.97, y: 163.21}
+  m_AnchoredPosition: {x: 0.015747, y: -221.35}
+  m_SizeDelta: {x: 799.97, y: 157.29}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1467903572
 MonoBehaviour:
@@ -19181,7 +19181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b98fd17b7e63c124980a73c8780eec6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lettersPerSecond: 30
+  lettersPerSecond: 40
   highlightedColor: {r: 1, g: 0.25748268, b: 0.16509432, a: 1}
   dialogText: {fileID: 1064160477}
   actionSelector: {fileID: 1739961529}
