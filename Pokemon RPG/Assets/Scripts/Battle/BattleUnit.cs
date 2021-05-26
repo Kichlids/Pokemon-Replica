@@ -35,6 +35,8 @@ public class BattleUnit : MonoBehaviour
     public void Setup(Pokemon pokemon) {
         Pokemon = pokemon;
 
+        pokemon.Base.SetSprite();
+
         if (isPlayerUnit) {
            image.sprite = Pokemon.Base.BackSprite1;
         }
@@ -57,16 +59,26 @@ public class BattleUnit : MonoBehaviour
         }
 
         image.transform.DOLocalMoveX(originalPos.x, 1f);
+
+        //StartCoroutine(PlayEncounterAnimation());
     }
 
-    //public IEnumerator PlayEncounterAnimation() {
-    //    if (isPlayerUnit) {
-
-    //    }
-    //    else {
-
-    //    }
-    //}
+    public IEnumerator PlayEncounterAnimation() {
+        if (isPlayerUnit) {
+            image.sprite = Pokemon.Base.BackSprite1;
+            yield return new WaitForSeconds(0.5f);
+            image.sprite = Pokemon.Base.BackSprite2;
+            yield return new WaitForSeconds(0.5f);
+            image.sprite = Pokemon.Base.BackSprite1;
+        }
+        else {
+            image.sprite = Pokemon.Base.FrontSprite1;
+            yield return new WaitForSeconds(0.5f);
+            image.sprite = Pokemon.Base.FrontSprite2;
+            yield return new WaitForSeconds(0.5f);
+            image.sprite = Pokemon.Base.FrontSprite1;
+        }
+    }
 
     public void PlayAttackAnimation() {
         Sequence sequence = DOTween.Sequence();

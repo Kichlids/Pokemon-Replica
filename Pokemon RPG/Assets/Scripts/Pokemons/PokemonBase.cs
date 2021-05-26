@@ -7,6 +7,8 @@ public class PokemonBase : ScriptableObject {
     [SerializeField]
     private string name;
     [SerializeField]
+    private int number;
+    [SerializeField]
     private string description;
     [SerializeField]
     private Sprite frontSprite1;
@@ -46,16 +48,20 @@ public class PokemonBase : ScriptableObject {
         get { return description; }
     }
     public Sprite FrontSprite1 {
-        get { return frontSprite1; }
+        get { return frontSprite1;  }
+        set { }
     }
     public Sprite FrontSprite2 {
         get { return frontSprite2; }
+        set { }
     }
     public Sprite BackSprite1 {
         get { return backSprite1; }
+        set { }
     }
     public Sprite BackSprite2 {
         get { return backSprite2; }
+        set { }
     }
     public PokemonType Type1 {
         get { return type1; }
@@ -83,6 +89,14 @@ public class PokemonBase : ScriptableObject {
     }
     public List<LearnableMove> LearnableMoves {
         get { return learnableMoves; }
+    }
+
+    public void SetSprite() {
+        print("hello");
+        FrontSprite1 = Resources.Load<Sprite>($"main-sprites/platinum/{number}.png");
+        FrontSprite2 = Resources.Load<Sprite>($"main-sprites/platinum/frame2/{number}.png");
+        BackSprite1 = Resources.Load<Sprite>($"main-sprites/platinum/back/{number}.png");
+        BackSprite2 = Resources.Load<Sprite>($"main-sprites/platinum/back/frame2/{number}.png");
     }
 }
 
