@@ -18080,7 +18080,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pokemons:
   - _base: {fileID: 11400000, guid: b0111eeb3259d2044ad41eb93fdd5ab8, type: 2}
-    level: 7
+    level: 100
   - _base: {fileID: 11400000, guid: 7879e8e0fcc7296428a211c1615a25e4, type: 2}
     level: 3
   - _base: {fileID: 11400000, guid: 7879e8e0fcc7296428a211c1615a25e4, type: 2}

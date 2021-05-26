@@ -28,6 +28,6 @@ MonoBehaviour:
   - boosts: []
     status: 2
     volatileStatus: 0
-    chance: 50
+    chance: 10
     target: 0
   target: 0
