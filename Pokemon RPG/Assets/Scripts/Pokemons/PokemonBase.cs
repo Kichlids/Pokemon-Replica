@@ -9,9 +9,13 @@ public class PokemonBase : ScriptableObject {
     [SerializeField]
     private string description;
     [SerializeField]
-    private Sprite frontSprite;
+    private Sprite frontSprite1;
     [SerializeField]
-    private Sprite backSprite;
+    private Sprite frontSprite2;
+    [SerializeField]
+    private Sprite backSprite1;
+    [SerializeField]
+    private Sprite backSprite2;
     [SerializeField]
     private PokemonType type1;
     [SerializeField]
@@ -41,11 +45,17 @@ public class PokemonBase : ScriptableObject {
     public string Description {
         get { return description; }
     }
-    public Sprite FrontSprite {
-        get { return frontSprite; }
+    public Sprite FrontSprite1 {
+        get { return frontSprite1; }
     }
-    public Sprite BackSprite {
-        get { return backSprite; }
+    public Sprite FrontSprite2 {
+        get { return frontSprite2; }
+    }
+    public Sprite BackSprite1 {
+        get { return backSprite1; }
+    }
+    public Sprite BackSprite2 {
+        get { return backSprite2; }
     }
     public PokemonType Type1 {
         get { return type1; }

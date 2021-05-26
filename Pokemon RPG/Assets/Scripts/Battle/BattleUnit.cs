@@ -36,10 +36,10 @@ public class BattleUnit : MonoBehaviour
         Pokemon = pokemon;
 
         if (isPlayerUnit) {
-           image.sprite = Pokemon.Base.BackSprite;
+           image.sprite = Pokemon.Base.BackSprite1;
         }
         else {
-            image.sprite = Pokemon.Base.FrontSprite;
+            image.sprite = Pokemon.Base.FrontSprite1;
         }
 
         hud.SetData(pokemon);
@@ -58,6 +58,15 @@ public class BattleUnit : MonoBehaviour
 
         image.transform.DOLocalMoveX(originalPos.x, 1f);
     }
+
+    //public IEnumerator PlayEncounterAnimation() {
+    //    if (isPlayerUnit) {
+
+    //    }
+    //    else {
+
+    //    }
+    //}
 
     public void PlayAttackAnimation() {
         Sequence sequence = DOTween.Sequence();
