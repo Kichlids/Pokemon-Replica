@@ -35,8 +35,6 @@ public class BattleUnit : MonoBehaviour
     public void Setup(Pokemon pokemon) {
         Pokemon = pokemon;
 
-        pokemon.Base.SetSprite();
-
         if (isPlayerUnit) {
            image.sprite = Pokemon.Base.BackSprite1;
         }
@@ -47,10 +45,10 @@ public class BattleUnit : MonoBehaviour
         hud.SetData(pokemon);
 
         image.color = originalColor;
-        PlayEnterAnimation();
+        StartCoroutine(PlayEnterAnimation());
     }
 
-    public void PlayEnterAnimation() {
+    public IEnumerator PlayEnterAnimation() {
         if (isPlayerUnit) {
             image.transform.localPosition = new Vector3(-500f, originalPos.y);
         }
@@ -60,7 +58,8 @@ public class BattleUnit : MonoBehaviour
 
         image.transform.DOLocalMoveX(originalPos.x, 1f);
 
-        //StartCoroutine(PlayEncounterAnimation());
+        yield return new WaitForSeconds(1f);
+        yield return PlayEncounterAnimation();
     }
 
     public IEnumerator PlayEncounterAnimation() {

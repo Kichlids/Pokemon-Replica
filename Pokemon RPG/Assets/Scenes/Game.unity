@@ -1420,7 +1420,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0f37bf3cf5680a64d863b5f155b2a597, type: 3}
+  m_Sprite: {fileID: 21300000, guid: eb7227ff6994cea42b3b01f26d5cbf03, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -17732,7 +17732,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: aacaae602a38f884ab9e02e43de3736d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c4acbe28a3d3b3c42a006e4eadb472f8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -18079,8 +18079,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pokemons:
-  - _base: {fileID: 11400000, guid: b0111eeb3259d2044ad41eb93fdd5ab8, type: 2}
-    level: 100
+  - _base: {fileID: 11400000, guid: 52d49916421fb8444aa2d3f6ca0a979c, type: 2}
+    level: 4
   - _base: {fileID: 11400000, guid: 7879e8e0fcc7296428a211c1615a25e4, type: 2}
     level: 3
   - _base: {fileID: 11400000, guid: 7879e8e0fcc7296428a211c1615a25e4, type: 2}
@@ -21567,8 +21567,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wildPokemons:
-  - _base: {fileID: 11400000, guid: 7879e8e0fcc7296428a211c1615a25e4, type: 2}
-    level: 5
+  - _base: {fileID: 11400000, guid: 52d49916421fb8444aa2d3f6ca0a979c, type: 2}
+    level: 8
   - _base: {fileID: 11400000, guid: 7879e8e0fcc7296428a211c1615a25e4, type: 2}
     level: 7
 --- !u!1001 &1916339780

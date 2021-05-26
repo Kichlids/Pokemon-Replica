@@ -13,9 +13,12 @@ MonoBehaviour:
   m_Name: Bulbasaur
   m_EditorClassIdentifier: 
   name: Bulbasaur
+  number: 1
   description: 
-  frontSprite: {fileID: 21300000, guid: 0f37bf3cf5680a64d863b5f155b2a597, type: 3}
-  backSprite: {fileID: 21300000, guid: aacaae602a38f884ab9e02e43de3736d, type: 3}
+  frontSprite1: {fileID: 21300000, guid: eb7227ff6994cea42b3b01f26d5cbf03, type: 3}
+  frontSprite2: {fileID: 21300000, guid: 36f6305f253bfc34abcec878006d11b5, type: 3}
+  backSprite1: {fileID: 21300000, guid: c4acbe28a3d3b3c42a006e4eadb472f8, type: 3}
+  backSprite2: {fileID: 21300000, guid: 6d6473e784fa4da46a382a5ad1c7d3af, type: 3}
   type1: 5
   type2: 8
   maxHP: 45

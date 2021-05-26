@@ -90,14 +90,6 @@ public class PokemonBase : ScriptableObject {
     public List<LearnableMove> LearnableMoves {
         get { return learnableMoves; }
     }
-
-    public void SetSprite() {
-        print("hello");
-        FrontSprite1 = Resources.Load<Sprite>($"main-sprites/platinum/{number}.png");
-        FrontSprite2 = Resources.Load<Sprite>($"main-sprites/platinum/frame2/{number}.png");
-        BackSprite1 = Resources.Load<Sprite>($"main-sprites/platinum/back/{number}.png");
-        BackSprite2 = Resources.Load<Sprite>($"main-sprites/platinum/back/frame2/{number}.png");
-    }
 }
 
 [System.Serializable]
