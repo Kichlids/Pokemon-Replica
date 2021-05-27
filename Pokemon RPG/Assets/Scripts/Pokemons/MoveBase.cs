@@ -19,6 +19,9 @@ public class MoveBase : ScriptableObject {
     [SerializeField]
     private int pp;
     [SerializeField]
+    private int priority;
+
+    [SerializeField]
     private MoveCategory category;
     [SerializeField]
     private MoveEffects effects;
@@ -47,6 +50,9 @@ public class MoveBase : ScriptableObject {
     }
     public int PP {
         get { return pp; }
+    }
+    public int Priority {
+        get { return priority; }
     }
     public MoveCategory Category {
         get { return category; }
