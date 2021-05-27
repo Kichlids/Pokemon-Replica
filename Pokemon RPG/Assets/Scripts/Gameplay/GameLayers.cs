@@ -10,6 +10,8 @@ public class GameLayers : MonoBehaviour
     private LayerMask interactableLayer;
     [SerializeField]
     private LayerMask grassLayer;
+    [SerializeField]
+    private LayerMask playerLayer;
 
     public static GameLayers Instance { get; set; }
 
@@ -21,6 +23,9 @@ public class GameLayers : MonoBehaviour
     }
     public LayerMask GrassLayer {
         get => grassLayer;
+    }
+    public LayerMask PlayerLayer {
+        get => playerLayer;
     }
 
     private void Awake() {
